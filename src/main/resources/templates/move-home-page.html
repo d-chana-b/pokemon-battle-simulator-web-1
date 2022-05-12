@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move Data List</title>
+    <div th:replace="fragments/header :: header-css" />
+</head>
+<body>
+    <div th:replace="fragments/header :: header" />
+    <div class="row flex-nowrap">
+        <div th:replace="fragments/sidebar :: sidebar" />
+        <div class="col py-3">
+            <!--dito mo ilagay ung content per page-->
+            <h1>Move List.</h1>
+
+            <a class="btn btn-primary" th:href="@{/admin/moves/add}" role="button">Add Move</a>
+
+
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Move Name</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Power</th>
+                    <th scope="col">Accuracy</th>
+                    <th scope="col">Move Category</th>
+                    <th scope="col">Update</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 
+                  
+                 
+                  
+                  
+                  <tr class="table-info" th:each="m : ${movelist}">
+                    <th scope="row" th:text="${m.moveName}">Info</th>
+                    <td th:text="*{m.moveType}">Column content</td>
+                    <td th:text="*{m.basePower}"></td>
+                    <td th:text="${m.accuracy}"></td>
+                    <td th:text="*{m.category}"></td>
+                    <td><a class="btn btn-warning" href="@{/admin/pokemon/update/{id}(id=${p.pokemonId})}" role="button">Update</a></td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</body>
+</html>
