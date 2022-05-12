@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/header :: header-css" />
+</head>
+
+<body>
+
+    <div th:replace="fragments/header :: header" />
+
+    <div class="row flex-nowrap">
+        <div th:replace="fragments/sidebar :: sidebar" />
+        <div class="col py-3">
+            <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Pokemon Name </h4>
+                  <h6 class="card-subtitle mb-2 text-muted">Type:</h6>
+                  <img width="100" height="100">
+                  <p class="card-text">Abilities</p>
+                  <label class="card-text">HP: </label>
+                  <label class="card-text">Attack: </label>
+                  <label class="card-text">Defense: </label>
+                  <label class="card-text">Sp. Atk: </label>
+                  <label class="card-text">Sp. Def: </label>
+                  <label class="card-text">Speed: </label>
+                  
+                </div>
+              </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+
+</body>
+
+</html>

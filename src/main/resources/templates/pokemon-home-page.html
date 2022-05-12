@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Data List</title>
+    <div th:replace="fragments/header :: header-css" />
+</head>
+<body>
+    <div th:replace="fragments/header :: header" />
+    <div class="row flex-nowrap">
+        <div th:replace="fragments/sidebar :: sidebar" />
+        <div class="col py-3">
+            <!--dito mo ilagay ung content per page-->
+            <h1>Pokemon List.</h1>
+
+            <a class="btn btn-primary" th:href="@{/admin/pokemon/add}" role="button">Add Pokemon</a>
+
+
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Pokedex#</th>
+                    <th scope="col">Pokemon</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Details</th>
+                    <th scope="col">Update</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 
+                  
+                 
+                  
+                  
+                  <tr class="table-info" th:each="p : ${pokemonList}">
+                    <th scope="row" th:text="${p.pokedexNumber}">Info</th>
+                    <td th:text="${p.pokemonName}">Column content</td>
+                    <td><img width="100" th:src="@{${'/assets/pokemonImages/'+ p.imageName}}"></td>
+                    <td><a th:href="@{/admin/pokemon/pokemon-details/{id}(id=${p.pokemonId})}">View Details</a></td>
+                    <td><a class="btn btn-warning" th:href="@{/admin/pokemon/update/{id}(id=${p.pokemonId})}" role="button">Update</a></td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</body>
+</html>

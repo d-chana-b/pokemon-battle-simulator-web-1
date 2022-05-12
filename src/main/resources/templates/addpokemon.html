@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Pokemon</title>
+    <div th:replace="fragments/header :: header-css" />
+</head>
+
+<body>
+    <div th:replace="fragments/header :: header" />
+    <div class="row flex-nowrap">
+        <div th:replace="fragments/sidebar :: sidebar" />
+        <div class="col py-3">
+            <!--dito mo ilagay ung content per page-->
+            <h1>Add Pokemon</h1>
+            <a th:href="@{/admin/pokemonlist}">return to pokemon list.</a>
+            <div class="col-md-auto">
+                <!--this is alert message-->
+                <div>
+                    <div class="alert alert-dismissible alert-success" th:if="${success}">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>Well done!</strong> Pokemon Added Successfully!
+                    </div>
+
+                </div>
+
+                <!-- this is the form-->
+                <form th:action="@{/admin/pokemon/add}" th:object="${pokemon}" method="post"
+                    enctype="multipart/form-data">
+                    <fieldset>
+                        <div class="form-group mt-2">
+                            <input type="text" name="id" th:field="*{pokemonId}" class="form-control" id="id" readonly
+                                hidden>
+                            <input type="text" class="form-control" placeholder="Pokedex#"
+                                th:field="*{pokedexNumber}" />
+                            <input type="text" class="form-control" placeholder="Pokemon Name"
+                                th:field="*{pokemonName}">
+
+                            <label for="exampleSelect1" class="form-label mt-4">Type 1</label>
+                            <select class="form-select" id="exampleSelect1" th:field="*{type1}">
+                                <option th:each="t : ${types}" th:value="${t}" th:text="${t}">---</option>
+                            </select>
+
+                            <label for="exampleSelect2" class="form-label mt-4">Type 2</label>
+                            <select class="form-select" id="exampleSelect2" th:field="*{type2}">
+                                <option th:value="none">---</option>
+                                <option th:each="t : ${types}" th:value="${t}" th:text="${t}">---</option>
+                            </select>
+                            <label for="exampleSelect2" class="form-label mt-4">Abilities</label>
+                            <input type="text" class="form-control" placeholder="Ability 1" th:field="*{ability1}">
+                            <input type="text" class="form-control" placeholder="Ability 2" th:field="*{ability2}">
+                            <input type="text" class="form-control" placeholder="Hidden Ability"
+                                th:field="*{hiddenAbility}">
+
+                            <label class="form-label mt-4">Base Stats</label>
+                            <input type="number" class="form-control" placeholder="HP" th:field="*{baseHp}">
+                            <input type="number" class="form-control" placeholder="Attack" th:field="*{baseAtk}">
+                            <input type="number" class="form-control" placeholder="Defense" th:field="*{baseDef}">
+                            <input type="number" class="form-control" placeholder="Special Attack"
+                                th:field="*{baseSpAtk}">
+                            <input type="number" class="form-control" placeholder="Special Defense"
+                                th:field="*{baseSpDef}">
+                            <input type="number" class="form-control" placeholder="Speed" th:field="*{baseSpeed}">
+                            
+                            
+                            <label for="formFile" class="form-label mt-4">Add Image</label>
+                            <input class="form-control" type="file" accept="image/*" name="image" id="file"
+                                onchange="loadFile(event)">
+
+                            <img id="output" width="100" th:src="@{${'/assets/pokemonImages/'+ pokemon.imageName}}" /><br>
+                            
+
+                            <div class="form_action--button">
+                                <input class="btn btn-success" type="submit" value="Submit">
+                                <input class="btn btn-danger" type="reset" value="Reset">
+                            </div>
+
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+
+
+    <!--script for displaying the uploaded file-->
+    <script>
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
+</body>
+
+</html>
