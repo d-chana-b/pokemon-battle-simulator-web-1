@@ -69,7 +69,7 @@ public class PokemonController {
          // utility class to handle file uploading
          FileUploadUtil.saveFile(multipartFile, uploadDir);
          pokemonService.savePokemon(pokemon);
-         redirectAttributes.addFlashAttribute("success");
+         redirectAttributes.addFlashAttribute("success","Pokemon added succesfully.");
  
          return "redirect:/admin/pokemon/add";
      }

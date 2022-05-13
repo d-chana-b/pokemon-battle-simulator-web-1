@@ -18,7 +18,10 @@
             <h1>Add Move</h1>
             <a th:href="@{/admin/moves}">return to pokemon list.</a>
             <div class="col-md-auto">
-
+                <div class="alert alert-dismissible alert-success" th:if="${success}">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    [[${success}]]
+                  </div>
                 <!-- this is the form-->
                 <form th:action="@{/admin/moves/add}" th:object="${move}" method="post">
                     <fieldset>

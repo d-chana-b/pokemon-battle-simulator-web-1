@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class MoveController {
@@ -38,10 +39,10 @@ public class MoveController {
     }
 
     @PostMapping("/admin/moves/add")
-    public String addMove(@ModelAttribute("move") Move move) {
+    public String addMove(@ModelAttribute("move") Move move,RedirectAttributes flash) {
 
         moveService.saveMove(move);
-
+        flash.addFlashAttribute("success","Move successfully added");
         return "redirect:/admin/moves/add";
     }
 
