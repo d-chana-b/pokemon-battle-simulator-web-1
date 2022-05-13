@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Move</title>
+    <div th:replace="fragments/header :: header-css" />
+</head>
+
+<body>
+    <div th:replace="fragments/header :: header" />
+    <div class="row flex-nowrap">
+        <div th:replace="fragments/sidebar :: sidebar" />
+        <div class="col py-3">
+            <!--dito mo ilagay ung content per page-->
+            <h1>Add Move</h1>
+            <a th:href="@{/admin/moves}">return to pokemon list.</a>
+            <div class="col-md-auto">
+                <div class="alert alert-dismissible alert-success" th:if="${success}">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    [[${success}]]
+                  </div>
+                <!-- this is the form-->
+                <form th:action="@{/admin/moves/add}" th:object="${move}" method="post">
+                    <fieldset>
+                        <div class="form-group mt-2">
+                            <input type="text" name="id" class="form-control" id="id" th:field="*{moveId}" readonly hidden>
+
+                            <input type="text" class="form-control" th:field="*{moveName}" placeholder="Move Name" >
+
+                            <label for="exampleSelect1" class="form-label mt-4">Type</label>
+                            <select class="form-select" id="exampleSelect1" th:field="*{moveType}">
+                                <option th:each="t : ${movetypes}" th:value="${t}" th:text="${t}">---</option>
+                            </select>
+
+                            <label for="exampleSelect1" class="form-label mt-4">Type</label>
+                            <select class="form-select" id="exampleSelect1" th:field="*{category}">
+                                <option th:each="t : ${movecategory}" th:value="${t}" th:text="${t}">---</option>
+                            </select>
+
+                            
+                            <input type="number" class="form-control" th:field="*{basePower}" placeholder="Power">
+                            <input type="number" class="form-control" th:field="*{accuracy}" placeholder="Accuracy">
+
+
+
+                            <div class="form_action--button">
+                                <input class="btn btn-success" type="submit" value="Submit">
+                                <input class="btn btn-danger" type="reset" value="Reset">
+                            </div>
+
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+
+
+
+</body>
+
+</html>
