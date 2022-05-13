@@ -41,7 +41,7 @@
                     <td th:text="*{m.basePower}"></td>
                     <td th:text="${m.accuracy}"></td>
                     <td th:text="*{m.category}"></td>
-                    <td><a class="btn btn-warning" href="@{/admin/pokemon/update/{id}(id=${p.pokemonId})}" role="button">Update</a></td>
+                    <td><a class="btn btn-warning" th:href="@{/admin/moves/update/{id}(id=${m.moveId})}" role="button">Update</a></td>
                   </tr>
                   
                 </tbody>

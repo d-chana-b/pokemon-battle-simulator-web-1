@@ -2,7 +2,7 @@ package com.pokemonsimulator.demo.controller;
 
 import java.util.Arrays;
 import java.util.List;
-
+import java.util.Optional;
 
 import com.pokemonsimulator.demo.model.Move;
 import com.pokemonsimulator.demo.service.MoveService;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -44,6 +45,26 @@ public class MoveController {
         moveService.saveMove(move);
         flash.addFlashAttribute("success","Move successfully added");
         return "redirect:/admin/moves/add";
+    }
+
+    @GetMapping("/admin/moves/update/{id}")
+    public String updateMove(@PathVariable Long id,Model model){
+
+        //for the dropdown
+        List<String> moveTypes = Arrays.asList("Normal", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dark",
+                "Dragon", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel");
+        model.addAttribute("movetypes", moveTypes);
+        List<String> moveCategories = Arrays.asList("Physical","Special","Status");
+        model.addAttribute("movecategory",moveCategories);
+
+        Optional<Move> move = moveService.getMoveById(id);
+
+        if(move.isPresent()){
+            model.addAttribute("move",move.get());
+            return "addmove";
+        }else{
+            return "404";
+        }
     }
 
 }
