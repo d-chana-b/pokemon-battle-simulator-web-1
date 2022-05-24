@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import com.pokemonsimulator.demo.model.Move;
 import com.pokemonsimulator.demo.model.Pokemon;
+import com.pokemonsimulator.demo.service.MoveService;
 import com.pokemonsimulator.demo.service.PokemonService;
 import com.pokemonsimulator.demo.utilities.FileUploadUtil;
 
@@ -27,6 +29,9 @@ public class PokemonController {
      // inject the pokemon service here
      @Autowired
      PokemonService pokemonService;
+
+     @Autowired
+     MoveService moveService;
  
      @GetMapping("/admin/pokemonlist")
      public String pokemonList(Model model) {
@@ -92,6 +97,19 @@ public class PokemonController {
      @GetMapping("/admin/pokemon/pokemon-details/{id}")
      public String viewPokemonDetails(Model model, @PathVariable Long id){
          model.addAttribute("pokemon", pokemonService.getPokemonById(id).get());
+         model.addAttribute("moves", moveService.getAllMoves());
          return "pokemondetails";
+     }
+
+     @GetMapping("/admin/pokemon/pokemon-details/add-move")
+     public String addMoveToPokemon(@RequestParam("pokemonId") Long pokemonid,@RequestParam("moveId") Long moveid){
+        
+        Optional<Pokemon> pokemon = pokemonService.getPokemonById(pokemonid);
+        Optional<Move> move = moveService.getMoveById(moveid);
+
+        //problem here is naooveride lang ung laman
+        //gawa ka code pang check if present later on
+        pokemonService.addMove(pokemon.get(), move.get());
+        return "redirect:/admin/pokemon/pokemon-details/"+pokemonid;//to redirect to the page of the current pokemon
      }
 }

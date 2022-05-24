@@ -11,14 +11,15 @@
 
     <div class="row flex-nowrap">
         <div th:replace="fragments/sidebar :: sidebar" />
-        <div class="col py-3">
+        <div class="col py-3" th:object="${pokemon}">
             <a th:href="@{/admin/pokemonlist}">return to pokemon list</a>
             <div class="card">
-                <div class="card-body" th:object="${pokemon}">
+                <div class="card-body">
                     <h4 class="card-title" th:text="*{pokemonName}">Pokemon Name </h4>
                     <h6 class="card-subtitle mb-2 text-muted">Type: [[*{type1}]],[[*{type2}]]</h6>
                     <img width="100" th:src="@{${'/assets/pokemonImages/'+ pokemon.imageName}}">
-                    <p class="card-text">Abilities: [[*{ability1}]],[[*{ability2}]], Hidden Ability: [[*{hiddenAbility}]]</p>
+                    <p class="card-text">Abilities: [[*{ability1}]],[[*{ability2}]], Hidden Ability:
+                        [[*{hiddenAbility}]]</p>
                     <label class="card-text">HP: [[*{baseHp}]]</label>
                     <label class="card-text">Attack: [[*{baseAtk}]]</label>
                     <label class="card-text">Defense: [[*{baseDef}]]</label>
@@ -31,6 +32,17 @@
 
             <!-- Move Lists -->
             <h3>Move List</h3>
+            <form th:action="@{/admin/pokemon/pokemon-details/add-move}">
+                <fieldset>
+                    <!-- this tag is use for @RequestParam for the method in controller, it will bind the value of this tag-->
+                    <input type="text" name="pokemonId" th:value="*{pokemonId}" class="form-control" id="id" readonly hidden>
+                    <select class="form-select" id="exampleSelect2" name="moveId">
+                        <option th:each="m : ${moves}" th:value="${m.moveId}" th:text="${m.moveName}">---</option>
+                    </select>
+                    <input class="btn btn-success" type="submit" value="Level-up Moves">
+                </fieldset>
+            </form>
+            <h3>Pokemon's Move List</h3>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <a class="nav-link active keychainify-checked" data-bs-toggle="tab" href="#levelUpMoves">Level-Up
@@ -47,12 +59,12 @@
                 <div class="tab-pane fade show active" id="levelUpMoves">
                     <table class="table table-hover">
                         <thead>
-                          <tr>
-                            <th scope="col">Type</th>
-                            <th scope="col">Column heading</th>
-                            <th scope="col">Column heading</th>
-                            <th scope="col">Column heading</th>
-                          </tr>
+                            <tr>
+                                <th scope="col">Type</th>
+                                <th scope="col">Column heading</th>
+                                <th scope="col">Column heading</th>
+                                <th scope="col">Column heading</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr class="table-info">
@@ -60,9 +72,9 @@
                                 <td>Column content</td>
                                 <td>Column content</td>
                                 <td>Column content</td>
-                              </tr>
+                            </tr>
                         </tbody>
-                    </table>                            
+                    </table>
                 </div>
                 <div class="tab-pane fade" id="tmMoves">
                     <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
