@@ -12,6 +12,7 @@
     <div class="row flex-nowrap">
         <div th:replace="fragments/sidebar :: sidebar" />
         <div class="col py-3" th:object="${pokemon}">
+
             <a th:href="@{/admin/pokemonlist}">return to pokemon list</a>
             <div class="card">
                 <div class="card-body">
@@ -32,14 +33,17 @@
 
             <!-- Move Lists -->
             <h3>Move List</h3>
-            <form th:action="@{/admin/pokemon/pokemon-details/add-move}">
+            <form th:action="@{/admin/pokemon/pokemon-details/add-move}" >
                 <fieldset>
                     <!-- this tag is use for @RequestParam for the method in controller, it will bind the value of this tag-->
-                    <input type="text" name="pokemonId" th:value="*{pokemonId}" class="form-control" id="id" readonly hidden>
+                    <input type="text" name="pokemonId" th:value="*{pokemonId}" class="form-control" id="id" readonly
+                        hidden>
                     <select class="form-select" id="exampleSelect2" name="moveId">
                         <option th:each="m : ${moves}" th:value="${m.moveId}" th:text="${m.moveName}">---</option>
                     </select>
-                    <input class="btn btn-success" type="submit" value="Level-up Moves">
+                    <input class="btn btn-success" type="submit" name="action" value="Level-up Moves">
+                    <input class="btn btn-success" type="submit" name="action" value="TM Moves">
+                    <input class="btn btn-success" type="submit" name="action" value="Egg Moves">
                 </fieldset>
             </form>
             <h3>Pokemon's Move List</h3>
@@ -60,18 +64,20 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
+                                <th scope="col">Move Name</th>
                                 <th scope="col">Type</th>
-                                <th scope="col">Column heading</th>
-                                <th scope="col">Column heading</th>
-                                <th scope="col">Column heading</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Base Power</th>
+                                <th scope="col">Accuracy</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="table-info">
-                                <th scope="row">Info</th>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                                <td>Column content</td>
+                            <tr class="table-info"  th:each="w:${pokemonmoves}">
+                                <th scope="row" th:text="${w.getMove().getMoveName()}">Info</th>
+                                <td th:text="${w.getMove().getMoveType()}">Column content</td>
+                                <td th:text="${w.getMove().getCategory()}">Column content</td>
+                                <td th:text="${w.getMove().getBasePower()}">Column content</td>
+                                <td th:text="${w.getMove().getAccuracy()}">Column content</td>
                             </tr>
                         </tbody>
                     </table>

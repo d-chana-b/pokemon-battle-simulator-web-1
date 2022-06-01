@@ -31,12 +31,12 @@ public class Pokemon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pokemonId;
 
-    // @OneToMany(mappedBy = "pokemon",cascade = CascadeType.ALL)
-    // private List<PokemonMoveList> pokemonMoveLists;
+    @OneToMany(mappedBy = "pokemon",cascade = CascadeType.ALL)
+    private List<PokemonMoveList> pokemonMoveLists;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "pokemon_move_list", joinColumns = @JoinColumn(name = "pokemon_id", referencedColumnName = "pokemonId", nullable = false, updatable = false), inverseJoinColumns = @JoinColumn(name = "move_id", referencedColumnName = "moveId",nullable = false, updatable = false))
-    private Collection<Move> moves;
+    // @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    // @JoinTable(name = "pokemon_move_list", joinColumns = @JoinColumn(name = "pokemon_id", referencedColumnName = "pokemonId", nullable = false, updatable = false), inverseJoinColumns = @JoinColumn(name = "move_id", referencedColumnName = "moveId",nullable = false, updatable = false))
+    // private Collection<Move> moves;
 
     @Column(name = "pokedex_number")
     private int pokedexNumber;
@@ -49,24 +49,24 @@ public class Pokemon {
     private int baseHp, baseAtk, baseDef, baseSpAtk, baseSpDef, baseSpeed;
     private String imageName;
 
-    public Pokemon(int pokedexNumber, String pokemonName, String type1, String type2,
-            String ability1, String ability2, String hiddenAbility, Collection<Move> moves, int baseHp, int baseAtk,
-            int baseDef, int baseSpAtk,
-            int baseSpDef,String imageName) {
-        this.pokedexNumber = pokedexNumber;
-        this.pokemonName = pokemonName;
-        this.type1 = type1;
-        this.type2 = type2;
-        this.ability1 = ability1;
-        this.ability2 = ability2;
-        this.hiddenAbility = hiddenAbility;
-        this.moves = moves;
-        this.baseHp = baseHp;
-        this.baseAtk = baseAtk;
-        this.baseDef = baseDef;
-        this.baseSpAtk = baseSpAtk;
-        this.baseSpDef = baseSpDef;
-        this.imageName = imageName;
-    }
+    // public Pokemon(int pokedexNumber, String pokemonName, String type1, String type2,
+    //         String ability1, String ability2, String hiddenAbility, Collection<Move> moves, int baseHp, int baseAtk,
+    //         int baseDef, int baseSpAtk,
+    //         int baseSpDef,String imageName) {
+    //     this.pokedexNumber = pokedexNumber;
+    //     this.pokemonName = pokemonName;
+    //     this.type1 = type1;
+    //     this.type2 = type2;
+    //     this.ability1 = ability1;
+    //     this.ability2 = ability2;
+    //     this.hiddenAbility = hiddenAbility;
+    //     this.moves = moves;
+    //     this.baseHp = baseHp;
+    //     this.baseAtk = baseAtk;
+    //     this.baseDef = baseDef;
+    //     this.baseSpAtk = baseSpAtk;
+    //     this.baseSpDef = baseSpDef;
+    //     this.imageName = imageName;
+    // }
 
 }

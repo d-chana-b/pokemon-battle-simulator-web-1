@@ -26,8 +26,8 @@ public class Move {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long moveId;
 
-//    @OneToMany(mappedBy = "move",cascade = CascadeType.ALL)
-//    private List<PokemonMoveList> pokemonMoveLists;
+   @OneToMany(mappedBy = "move",cascade = CascadeType.ALL)
+   private List<PokemonMoveList> pokemonMoveLists;
 
     private String moveName;
     private String moveType;
